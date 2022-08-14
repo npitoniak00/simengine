@@ -29,6 +29,8 @@ public:
   void add_routine(Enviroment *Env,SimState *SimData,int priority,int min_ms_interval,routine_functionality rfp);
   void free_routines();
   int get_routine_count();
+  void mergesort(int left,int right,vector<SimNonRenderRoutine*>*);
+  void merge(int left,int middle,int right,vector<SimNonRenderRoutine*>*);
   vector<SimNonRenderRoutine*> sort_routines();
   vector<SimNonRenderRoutine*> get_expired_routines();
   ~SimRoutineScheduler();
