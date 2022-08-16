@@ -20,32 +20,33 @@
 
 using namespace std;
 
-// typedef void (*routine_functionality)(void);
-typedef void (*routine_functionality)(Enviroment *Env,SimState *Sd);
-
 class SimNonRenderRoutine {
 private:
   int priority = -1;
+  string instructions_slug;
   int minimum_ms_interval = -1;
-  routine_functionality instructions = NULL;
-  //routine_functionality1 instructions1 = NULL;
   Enviroment *E;
   SimState *S;
-  chrono::high_resolution_clock::time_point last_instruction_execution;
+  long int last_exec_ms;
 public:
   SimNonRenderRoutine();
   SimNonRenderRoutine(Enviroment *E,SimState *Sd);
-  SimNonRenderRoutine(Enviroment *Env,SimState *Sd,int priority_input,int min_ms_interval,routine_functionality rfp);
+  SimNonRenderRoutine(Enviroment *Env,SimState *Sd,int priority_input,int min_ms_interval,string instructions_slug);
   bool lazy_gt_overload(SimNonRenderRoutine *s);
-  chrono::high_resolution_clock::time_point get_last_instruction_execution_ts();
-  int get_last_exec_ms_epsilon();
+  long int get_last_exec_ms();
+  long int get_last_exec_ms_epsilon();
   bool is_interval_sleep_expired();
   int get_priority();
-  void set_routine_instructions(routine_functionality rfp);
-  //void set_routine_instructions(routine_functionality1 rfp);
   void set_minimum_time_interval(int min_ms_interval);
   void set_priority(int priority_input);
   void execute_instructions();
+  void update_frame_rate_calc();
+  void process_antagonist_attacks_on_protagonist();
+  void compute_VarPosFigure_paths();
+  void enviroment_react_to_PlotContext();
+  void increment_VarPosFigure_positions();
+  void update_protagonist_figure_position();
+  void update_reticle_position();
   ~SimNonRenderRoutine();
 };
 

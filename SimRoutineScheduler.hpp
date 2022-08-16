@@ -26,7 +26,7 @@ private:
 public:
   SimRoutineScheduler();
   void add_routine(SimNonRenderRoutine *snrr);
-  void add_routine(Enviroment *Env,SimState *SimData,int priority,int min_ms_interval,routine_functionality rfp);
+  void add_routine(Enviroment *Env,SimState *SimData,int priority,int min_ms_interval,string instructions_slug);
   void free_routines();
   int get_routine_count();
   void mergesort(int left,int right,vector<SimNonRenderRoutine*>*);

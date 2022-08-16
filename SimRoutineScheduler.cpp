@@ -54,9 +54,9 @@ void SimRoutineScheduler::mergesort(int left,int right,vector<SimNonRenderRoutin
 void SimRoutineScheduler::add_routine(SimNonRenderRoutine *snrr) {
   routines.push_back(snrr);
 }
-void SimRoutineScheduler::add_routine(Enviroment *Env,SimState *SimData,int priority,int min_ms_interval,routine_functionality rfp) {
+void SimRoutineScheduler::add_routine(Enviroment *Env,SimState *SimData,int priority,int min_ms_interval,string instructions_slug) {
   SimNonRenderRoutine* SnrrMem = (SimNonRenderRoutine*) malloc(sizeof(SimNonRenderRoutine));
-  SnrrMem = new (SnrrMem) SimNonRenderRoutine(Env,SimData,priority,min_ms_interval,rfp);
+  SnrrMem = new (SnrrMem) SimNonRenderRoutine(Env,SimData,priority,min_ms_interval,instructions_slug);
   routines.push_back(SnrrMem);
 }
 void SimRoutineScheduler::free_routines() {
@@ -66,20 +66,31 @@ int SimRoutineScheduler::get_routine_count() {
   return routines.size();
 }
 vector<SimNonRenderRoutine*> SimRoutineScheduler::get_expired_routines() {
+//  cout << "computing expired routines" << endl;
   vector<SimNonRenderRoutine*> expired_routines;
   for(int i = 0; i < routines.size(); i++) {
-    if(routines[i]->is_interval_sleep_expired()) { expired_routines.push_back(routines[i]); }
+  /*  cout << "about to test for expiration" << i << endl;
+    cout << routines.size() << endl;
+    cout << typeid(routines[0]).name() << endl;
+    cout << routines[0]->get_priority() << endl;
+    cout << routines[i]->is_interval_sleep_expired() << endl;
+    cout << "is expired above indicator" << endl;*/
+    if(routines[i]->is_interval_sleep_expired()) {
+      //cout << "about to record routine" << endl;
+      expired_routines.push_back(routines[i]);
+    }
   }
+  //cout << "end computing expired routines" << endl;
   return expired_routines;
 }
 vector<SimNonRenderRoutine*> SimRoutineScheduler::sort_routines() {
+//  cout << "\na\n" << endl;
   vector<SimNonRenderRoutine*> routines_mod = get_expired_routines();
-//  vector<SimNonRenderRoutine*> *routines_mod = new vector<SimNonRenderRoutine*>();
-//  for(int i = 0; i < routines.size(); i++) {
-//    if(routines[i]->is_interval_sleep_expired()) { routines_mod->push_back(routines[i]); }
-//  }
-  if(routines_mod.size() <= 1) { return routines_mod; }
+//  cout << "b" << endl;
+  if(routines_mod.size() <= 1) { cout << "c" << endl; return routines_mod; }
+//  cout << "d" << endl;
   mergesort(0,routines_mod.size()-1,&routines_mod);
+//  cout << "e" << endl;
   return routines_mod;
 }
 SimRoutineScheduler::~SimRoutineScheduler() {
