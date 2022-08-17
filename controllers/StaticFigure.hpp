@@ -32,10 +32,13 @@ using namespace std;
 class StaticFigure: public VCController {
 private:
   glm::vec3 pos;
+  glm::vec3 figure_scale = glm::vec3(1.0f,1.0f,1.0f);
   SimState *SimData;
 public:
   StaticFigure(SimState *SimData_input,glm::vec3 pos);
+  StaticFigure(SimState *SimData_input,glm::vec3 pos,glm::vec3 scale_vec);
   glm::vec3 get_position();
+  void set_scale(glm::vec3 scale_vec);
   vector<vector<int>> get_figure_hitbox_bounds();
   void add_VisualComponent(SimState *SimData, int vbo_index, int vbo_index_vertex_count, string name, StaticFigure *sf);
   void remove_VisualComponent(string name,SimState *SimData);

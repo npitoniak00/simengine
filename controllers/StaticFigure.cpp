@@ -28,8 +28,18 @@ class Bound;
 using namespace std;
 
 StaticFigure::StaticFigure(SimState *SimData_input,glm::vec3 pos_input) {
+  cout << "init static figure" << endl;
   SimData = SimData_input;
   pos = pos_input;
+}
+StaticFigure::StaticFigure(SimState *SimData_input,glm::vec3 pos_input,glm::vec3 scale_vec) {
+  cout << "init static figure" << endl;
+  SimData = SimData_input;
+  pos = pos_input;
+  figure_scale = scale_vec;
+}
+void StaticFigure::set_scale(glm::vec3 scale_vec) {
+  figure_scale = scale_vec;
 }
 vector<vector<int>> StaticFigure::get_figure_hitbox_bounds() {
   vector<vector<int>> ret_bounds;
@@ -66,7 +76,7 @@ vector<glm::mat4> StaticFigure::position_computation(SimState *SimData,VisualCom
   glm::mat4 pMatRotY = glm::rotate(pMatRotX,SimData->get_camera_y_rot(),glm::vec3(0,1,0));
   glm::mat4 vMat = glm::translate(glm::mat4(1.0f), glm::vec3(SimData->get_camera_position()[0],SimData->get_camera_position()[1],SimData->get_camera_position()[2]));
   glm::mat4 mMat = glm::translate(glm::mat4(1.0f), glm::vec3(vcpos[0],vcpos[1],vcpos[2]));
-  mMat = glm::scale(glm::mat4(1.0f),glm::vec3(0.1f,0.1f,0.1f));
+  mMat = glm::scale(mMat,StaticFigure::figure_scale);
   vector<glm::mat4> ret;
   ret.push_back(pMatRotY);
   ret.push_back(vMat);
