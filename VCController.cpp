@@ -19,6 +19,7 @@
 #include "controllers/StaticFigure.hpp"
 #include "controllers/Floor.hpp"
 #include "controllers/Reticle.hpp"
+#include "controllers/HUD.hpp"
 
 class VisualComponent;
 class SimState;
@@ -26,6 +27,7 @@ class VarPosFigure;
 class StaticFigure;
 class Floor;
 class Reticle;
+class HUD;
 
 using namespace std;
 
@@ -37,8 +39,8 @@ void VCController::remove_VisualComponent(string name,SimState *SimData) {
   std::unordered_map<std::string,VisualComponent*>::const_iterator result = VisualComponents.find(name);
   VisualComponent *Vc = result->second;
   SimData->remove_VisualComponent(Vc);
-  //Vc->~VisualComponent();
-  //free(Vc);
+  // Vc->~VisualComponent();
+  // free(Vc);
 }
 unordered_map<string,VisualComponent*> VCController::get_VisualComponents() {
   return VisualComponents;
@@ -47,10 +49,10 @@ VCController::~VCController() {
   cout << "destroying VCController" << endl;
 }
 template <typename T> void VCController::generic_add_VisualComponent(SimState *SimData,glm::vec3 pos,int vbo_index,int vbo_index_vertex_count,string name,T t) {
-  //cout << "reached template method" << endl;
-  //cout << "vbo index: " << vbo_index << endl;
-  //out << "vbo index vertex count: " << vbo_index_vertex_count << endl;
-  //cout << "generic template param type: " << typeid(t).name() << endl;
+  // cout << "reached template method" << endl;
+  // cout << "vbo index: " << vbo_index << endl;
+  // cout << "vbo index vertex count: " << vbo_index_vertex_count << endl;
+  // cout << "generic template param type: " << typeid(t).name() << endl;
   VisualComponent* Vc = (VisualComponent*) malloc(sizeof(VisualComponent));
   Vc = new (Vc) VisualComponent(pos,t);
   Vc->set_vbo_index(vbo_index);
@@ -62,3 +64,4 @@ template void VCController::generic_add_VisualComponent<VarPosFigure*>(SimState 
 template void VCController::generic_add_VisualComponent<Floor*>(SimState *SimData,glm::vec3 pos,int vbo_index,int vbo_index_vertex_count,string name,Floor*);
 template void VCController::generic_add_VisualComponent<Reticle*>(SimState *SimData,glm::vec3 pos,int vbo_index,int vbo_index_vertex_count,string name,Reticle*);
 template void VCController::generic_add_VisualComponent<StaticFigure*>(SimState *SimData,glm::vec3 pos,int vbo_index,int vbo_index_vertex_count,string name,StaticFigure*);
+template void VCController::generic_add_VisualComponent<HUD*>(SimState *SimData,glm::vec3 pos,int vbo_index,int vbo_index_vertex_count,string name,HUD*);
