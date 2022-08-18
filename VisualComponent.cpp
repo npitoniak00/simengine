@@ -17,10 +17,12 @@
 #include "controllers/StaticFigure.hpp"
 #include "controllers/Floor.hpp"
 #include "controllers/Reticle.hpp"
+#include "controllers/HUD.hpp"
 
 class SimState;
 class VarPosFigure;
 class Reticle;
+class HUD;
 
 VisualComponent::VisualComponent(glm::vec3 input_pos) {
   pos = input_pos;
@@ -45,6 +47,11 @@ VisualComponent::VisualComponent(glm::vec3 input_pos, StaticFigure *psf) {
   pos = input_pos;
   parent_sf = psf;
 }
+VisualComponent::VisualComponent(glm::vec3 input_pos, HUD *phud) {
+  cout << "visualcomponent() HUD " << phud << endl;
+  pos = input_pos;
+  parent_hud = phud;
+}
 VisualComponent::~VisualComponent() {
   cout << "destroying VisualComponent" << endl;
 }
@@ -53,6 +60,7 @@ string VisualComponent::get_parent_type_str() {
   if(parent_vpf != NULL) { return string("VarPosFigure"); }
   if(parent_reticle != NULL) { return string("Reticle"); }
   if(parent_sf != NULL) { return string("StaticFigure"); }
+  if(parent_hud != NULL) { return string("HUD"); }
   return string("VarPosFigure");
 }
 Floor* VisualComponent::get_Floor_parent() {
@@ -69,6 +77,9 @@ StaticFigure* VisualComponent::get_StaticFigure_parent() {
 }
 VarPosFigure* VisualComponent::get_parent() {
   return parent_vpf;
+}
+HUD* VisualComponent::get_hud_parent() {
+  return parent_hud;
 }
 void VisualComponent::set_vertex_count(int vertex_count_input) {
   vertex_count = vertex_count_input;

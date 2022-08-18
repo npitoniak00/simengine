@@ -22,10 +22,12 @@
 #include "controllers/StaticFigure.hpp"
 #include "controllers/Floor.hpp"
 #include "controllers/Reticle.hpp"
+#include "controllers/HUD.hpp"
 
 class SimState;
 class VarPosFigure;
 class Reticle;
+class HUD;
 
 using namespace std;
 
@@ -38,6 +40,7 @@ class VisualComponent {
     VarPosFigure *parent_vpf = NULL;
     StaticFigure *parent_sf = NULL;
     Floor *parent_floor = NULL;
+    HUD *parent_hud = NULL;
   public:
     ~VisualComponent();
     VisualComponent(glm::vec3 input_pos);
@@ -45,6 +48,7 @@ class VisualComponent {
     VisualComponent(glm::vec3 input_pos, Floor *parent_floor);
     VisualComponent(glm::vec3 input_pos, Reticle *parent_reticle);
     VisualComponent(glm::vec3 input_pos, StaticFigure *parent_sf);
+    VisualComponent(glm::vec3 input_pos, HUD *parent_hud);
     int get_vbo_index();
     void set_vbo_index(int vbo_index_input);
     int get_vertex_count();
@@ -54,6 +58,7 @@ class VisualComponent {
     void set_position(glm::vec3 pos_input);
     VarPosFigure* get_VarPosFigure_parent();
     Floor* get_Floor_parent();
+    HUD* get_hud_parent();
     Reticle* get_Reticle_parent();
     StaticFigure* get_StaticFigure_parent();
     string get_parent_type_str();
