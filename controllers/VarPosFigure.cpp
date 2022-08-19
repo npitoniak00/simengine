@@ -32,7 +32,7 @@ using namespace std;
 VarPosFigure::VarPosFigure(SimState *SimData_input) {
   SimData = SimData_input;
   Bound *h = SimData->get_figure_movement_graph_Bound();
-  glm::vec3 rp = h->generate_random_inclusive_position();
+  glm::vec3 rp = h->generate_random_inclusive_position(0);
   pos = rp;
 
   DamageRecord* DamageMem = (DamageRecord*) malloc(sizeof(DamageRecord));
@@ -44,7 +44,7 @@ VarPosFigure::VarPosFigure(SimState *SimData_input, VarPosFigure *vpf_input) {
 
   SimData = SimData_input;
   Bound *floor = SimData->get_figure_movement_graph_Bound();
-  glm::vec3 rp = floor->generate_random_inclusive_position();
+  glm::vec3 rp = floor->generate_random_inclusive_position(0);
   pos = rp;
 
   DamageRecord* DamageMem = (DamageRecord*) malloc(sizeof(DamageRecord));

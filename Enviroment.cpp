@@ -215,7 +215,8 @@ void Enviroment::init_protagonist() {
   FigureMem->add_VisualComponent(SimData,0,36,sc,FigureMem);
   protagonist = FigureMem;
 
-  glm::vec3 random_target = SimData->get_figure_movement_graph_Bound()->generate_random_inclusive_position(); 
+  glm::vec3 random_target = SimData->get_figure_movement_graph_Bound()->generate_random_inclusive_position(0);
+  cout << "initializing protagonist @ ("<< random_target[0] <<","<< random_target[1] <<","<< random_target[2] <<")" << endl;
   SimData->set_protagonist_position(random_target);
 }
 void Enviroment::init_VarPosFigure() {
