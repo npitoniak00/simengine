@@ -23,6 +23,8 @@ private:
   vector<vector<int>> bounds;
 public:
   Bound();
+  Bound(glm::vec3 max_positive_corner,glm::vec3 dim_deltas,bool is_horizontal);
+  void compute_limits();
   void generate_rectangular_bounds(glm::vec3 max_positive_corner,glm::vec3 dim_deltas,bool is_horizontal);
   bool is_vec3_within_bounds(glm::vec3 input_vec3);
   vector<glm::vec3> get_rectangular_bounds();

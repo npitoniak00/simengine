@@ -18,6 +18,10 @@ using namespace std;
 Bound::Bound() {
   cout << "Bound init'd" << endl;
 }
+Bound::Bound(glm::vec3 max_positive_corner,glm::vec3 dim_deltas,bool is_horizontal) {
+  Bound::generate_rectangular_bounds(max_positive_corner,dim_deltas,is_horizontal);
+
+}
 vector<vector<int>> Bound::get_dim_bounds() {
   return bounds;
 }
@@ -44,21 +48,15 @@ void Bound::generate_rectangular_bounds(glm::vec3 max_positive_corner,glm::vec3 
     rectangular_bounds.push_back(glm::vec3((float)max_positive_corner[0]-dim_deltas[0],(float)max_positive_corner[1],(float)max_positive_corner[2]));
     rectangular_bounds.push_back(glm::vec3((float)max_positive_corner[0]-dim_deltas[0],(float)max_positive_corner[1],(float)max_positive_corner[2]-dim_deltas[2]));
     rectangular_bounds.push_back(glm::vec3((float)max_positive_corner[0],(float)max_positive_corner[1],(float)max_positive_corner[2]-dim_deltas[2]));
-    /*rectangular_bounds.push_back(glm::vec3((float)max_positive_corner[0],(float)max_positive_corner[1],(float)(max_positive_corner[2]-dim_deltas[2])));
-    rectangular_bounds.push_back(glm::vec3((float)(max_positive_corner[0]-dim_deltas[0]),(float)max_positive_corner[1],(float)(max_positive_corner[2]-dim_deltas[2])));
-    rectangular_bounds.push_back(glm::vec3((float)(max_positive_corner[0]-dim_deltas[0]),(float)max_positive_corner[1],(float)max_positive_corner[2]));*/
   } else { // vertical rectangular bounds (ex: wall)
     rectangular_bounds.push_back(max_positive_corner);
     rectangular_bounds.push_back(glm::vec3((float)max_positive_corner[0],(float)max_positive_corner[1],(float)max_positive_corner[2]-dim_deltas[2]));
     rectangular_bounds.push_back(glm::vec3((float)max_positive_corner[0],(float)max_positive_corner[1]-dim_deltas[1],(float)max_positive_corner[2]-dim_deltas[2]));
     rectangular_bounds.push_back(glm::vec3((float)max_positive_corner[0],(float)max_positive_corner[1]-dim_deltas[1],(float)max_positive_corner[2]));
-    /*rectangular_bounds.push_back(glm::vec3((float)max_positive_corner[0],(float)max_positive_corner[1]-dim_deltas[1],(float)max_positive_corner[2]));
-    rectangular_bounds.push_back(glm::vec3((float)max_positive_corner[0],(float)max_positive_corner[1]-dim_deltas[1],(float)(max_positive_corner[2]-dim_deltas[2])));
-    rectangular_bounds.push_back(glm::vec3((float)max_positive_corner[0],(float)max_positive_corner[1],(float)(max_positive_corner[2]-dim_deltas[2])));*/
   }
-  generate_random_inclusive_position();
+  Bound::compute_limits();
 }
-glm::vec3 Bound::generate_random_inclusive_position() {
+void Bound::compute_limits() {
   if(is_horizontal) {
     vector<int> x_limits;
     x_limits.push_back(rectangular_bounds[1][0]);
@@ -86,6 +84,8 @@ glm::vec3 Bound::generate_random_inclusive_position() {
     z_limits.push_back(rectangular_bounds[0][2]);
     bounds.push_back(z_limits);
   }
+}
+glm::vec3 Bound::generate_random_inclusive_position() {
   int xlo = (int)(bounds[0][0]);
   int xhi = (int)(bounds[0][1]);
   int ylo = (int)(bounds[1][0]);

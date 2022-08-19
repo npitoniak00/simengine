@@ -44,7 +44,6 @@ class SimState {
     vector<VisualComponent*> VisualComponents;
     Graph *enviroment_figure_pos_graph = NULL;
     Bound *figure_movement_Bound = NULL;
-    //PlotContext *GameContext = NULL;
     int shot_count = 0;
   public:
     struct {
