@@ -84,6 +84,7 @@ class SimState {
     Graph* get_enviroment_figure_pos_graph();
     void set_camera_y_rot(float camera_r_rot_input);
     void set_camera_x_rot(float camera_r_rot_input);
+    void init_camera_rots();
     void increment_camera_y_rot(float rot_inc);
     void increment_camera_x_rot(float rot_inc);
     void increment_reticle_y_rot(float rot_inc);

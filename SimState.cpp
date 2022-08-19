@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cmath>
 #include <ctime>
+#include <typeinfo>
 #include <vector>
 #include <chrono>
 
@@ -14,6 +15,7 @@
 #include "SimState.hpp"
 #include "VisualComponent.hpp"
 #include "Graph.hpp"
+#include "Utils.hpp"
 #include "GraphNode.hpp"
 
 class VisualComponent;
@@ -82,10 +84,13 @@ void SimState::add_VisualComponent(VisualComponent *Vc) {
   VisualComponents.push_back(Vc);
 }
 void SimState::increment_camera_y_rot(float rot_inc) {
-  camera_y_rot += rot_inc;
+  //cout << "rotincy: " << rot_inc << endl;
+  SimState::camera_y_rot = SimState::camera_y_rot + rot_inc;
+  //cout << "camera y rot: " << camera_y_rot << endl;
+  cout << (camera_y_rot += rot_inc) << endl;
 }
 void SimState::increment_camera_x_rot(float rot_inc) {
-  camera_x_rot += rot_inc;
+  SimState::camera_x_rot = SimState::camera_x_rot + rot_inc;
 }
 void SimState::increment_reticle_y_rot(float rot_inc) {
   if((reticle_y_rot+rot_inc) > (init_reticle_y_rot + 0.4)) { SimState::increment_camera_y_rot(-rot_inc); return; }
@@ -120,6 +125,10 @@ void SimState::set_camera_y_rot(float camera_y_rot_input) {
 }
 void SimState::set_camera_x_rot(float camera_x_rot_input) {
   camera_x_rot = camera_x_rot_input;
+}
+void SimState::init_camera_rots() {
+  SimState::set_camera_y_rot(-3.14);
+  SimState::set_camera_y_rot(0.0);
 }
 void SimState::remove_VisualComponent(VisualComponent *Vc) {
   int match_index = -1;
