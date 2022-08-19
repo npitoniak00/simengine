@@ -20,6 +20,7 @@
 #include "controllers/VarPosFigure.hpp"
 #include "controllers/StaticFigure.hpp"
 #include "controllers/Floor.hpp"
+#include "controllers/HUD.hpp"
 #include "GraphNode.hpp"
 #include "Graph.hpp"
 #include "Bound.hpp"
@@ -32,6 +33,25 @@ class PlotContext;
 class Graph;
 class Bound;
 
+void Enviroment::draw_hud() {
+
+  glm::vec3 protagonist_position = SimData->get_protagonist_position();
+
+  float camera_y_rot_radians = (float)(SimData->get_camera_y_rot());
+  float camera_x_rot_radians = (float)(SimData->get_camera_x_rot());
+
+  camera_x_rot_radians -= 0.2;
+  camera_y_rot_radians -= 0.2;
+  glm::vec3 posi = glm::vec3(protagonist_position[0]+(sin(camera_y_rot_radians)*cos(camera_x_rot_radians)),protagonist_position[1]-sin(camera_x_rot_radians),protagonist_position[2]-(cos(camera_y_rot_radians)*cos(camera_x_rot_radians)));
+  cout << "hud @ ("<< posi[0] <<","<< posi[1] <<","<< posi[2] <<")" << endl;
+  //camera_x_rot_radians += 0.4;
+  //camera_y_rot_radians += 0.4;
+  //glm::vec3 posir = glm::vec3(protagonist_position[0]+(sin(camera_y_rot_radians)*cos(camera_x_rot_radians)),protagonist_position[1]-sin(camera_x_rot_radians),protagonist_position[2]-(cos(camera_y_rot_radians)*cos(camera_x_rot_radians)));
+
+  Enviroment::init_StaticFigure(posi,glm::vec3(0.05f,0.05f,0.05f));
+  //Enviroment::init_StaticFigure(posi,glm::vec3(0.05f,0.05f,0.05f));
+
+}
 Enviroment::Enviroment(SimState *SimData_input) {
   SimData = SimData_input;
   enviroment_figure_pos_graph = SimData->get_enviroment_figure_pos_graph();
@@ -168,6 +188,13 @@ void Enviroment::init_Reticle() {
   ReticleMem->update_VisualComponent_positions();
   reticle = ReticleMem;
 }
+void Enviroment::init_HUD() {
+  HUD* HUDMem = (HUD*) malloc(sizeof(HUD));
+  HUDMem = new (HUDMem) HUD(SimData);
+  HUDMem->add_VisualComponent(SimData,0,36,string("protagonist_HUD"),HUDMem);
+  HUDMem->update_VisualComponent_positions();
+  protagonist_HUD = HUDMem;
+}
 void Enviroment::free_floor(Floor *floor_input) {
   vector<Floor*> floor_renderings;
   for(int i = 0; i < floors.size(); i++) {
@@ -200,10 +227,10 @@ void Enviroment::init_VarPosFigure() {
   if(protagonist != NULL) { FigureMem->set_vpf_target(protagonist); }
   varposfigures.push_back(FigureMem);
 }
-void Enviroment::init_StaticFigure(glm::vec3 input_pos) {
+void Enviroment::init_StaticFigure(glm::vec3 input_pos,glm::vec3 scale_vec) {
   glm::vec3 pos = input_pos;
   StaticFigure* FigureMem = (StaticFigure*) malloc(sizeof(StaticFigure));
-  FigureMem = new (FigureMem) StaticFigure(SimData,pos);
+  FigureMem = new (FigureMem) StaticFigure(SimData,pos,scale_vec);
 
   string sc("static_object");
   FigureMem->add_VisualComponent(SimData,0,36,sc,FigureMem);
