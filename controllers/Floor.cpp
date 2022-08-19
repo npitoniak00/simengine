@@ -27,7 +27,7 @@ Floor::Floor(SimState *SimData_input) {
   SimData = SimData_input;
   Bound *graph_bounds = SimData->get_figure_movement_graph_Bound();
   vector<glm::vec3> rect_verticies = graph_bounds->get_rectangular_bounds();
-  scale_dims = glm::vec3(rect_verticies[0][0]-rect_verticies[3][0],rect_verticies[0][1]-2.0f,rect_verticies[0][2]-rect_verticies[1][2]);
+  scale_dims = glm::vec3(rect_verticies[0][0]-rect_verticies[1][0],rect_verticies[0][1]-2.0f,rect_verticies[0][2]-rect_verticies[3][2]);
   glm::vec3 floor_rect_center = glm::vec3(rect_verticies[0][0]-((scale_dims[0])/(2.0f)),-0.5f,rect_verticies[0][2]-((scale_dims[2])/(2.0f)));
   pos = floor_rect_center;
 }

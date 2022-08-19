@@ -137,7 +137,7 @@ vector<glm::mat4> VarPosFigure::position_computation(SimState *SimData,VisualCom
   glm::mat4 pMatRotY = glm::rotate(pMatRotX,SimData->get_camera_y_rot(),glm::vec3(0,1,0));
   glm::mat4 vMat = glm::translate(glm::mat4(1.0f), glm::vec3(SimData->get_camera_position()[0],SimData->get_camera_position()[1],SimData->get_camera_position()[2]));
   glm::mat4 mMat = glm::translate(glm::mat4(1.0f), glm::vec3(vcpos[0],vcpos[1],vcpos[2]));
-  // mMat = glm::scale(mMat,glm::vec3(0.01,0.01f,0.01f));
+  mMat = glm::scale(mMat,glm::vec3(1.0,1.0f,1.0f));
   vector<glm::mat4> ret;
   ret.push_back(pMatRotY);
   ret.push_back(vMat);
