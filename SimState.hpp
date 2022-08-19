@@ -17,7 +17,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "PlotContext.hpp"
 #include "VisualComponent.hpp"
 #include "Graph.hpp"
 #include "GraphNode.hpp"
@@ -45,7 +44,7 @@ class SimState {
     vector<VisualComponent*> VisualComponents;
     Graph *enviroment_figure_pos_graph = NULL;
     Bound *figure_movement_Bound = NULL;
-    PlotContext *GameContext = NULL;
+    //PlotContext *GameContext = NULL;
     int shot_count = 0;
   public:
     struct {
