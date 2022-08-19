@@ -64,8 +64,8 @@ vector<GraphNode*> Graph::compute_cartesian_nodes_from_Bound(int prec,Bound *inp
   float xval,yval,zval;
   vector<glm::vec3> bounds = input_Bound->get_rectangular_bounds();
   vector<GraphNode*> graph_nodes;
-  for(int xi = bounds[3][0]; xi <= bounds[0][0]; xi++) { // iterate over xrange of boundaries
-    for(int zi = bounds[1][2]; zi <= bounds[0][2]; zi++) { // iterate over zrange of boundaries
+  for(int xi = bounds[1][0]; xi <= bounds[0][0]; xi++) { // iterate over xrange of boundaries
+    for(int zi = bounds[3][2]; zi <= bounds[0][2]; zi++) { // iterate over zrange of boundaries
       // iterate precision portions of each macro-cube
       for(int pix = 0; pix < prec; pix++) {
         for(int piz = 0; piz  < prec; piz++) {
