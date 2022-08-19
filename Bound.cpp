@@ -85,13 +85,27 @@ void Bound::compute_limits() {
     bounds.push_back(z_limits);
   }
 }
-glm::vec3 Bound::generate_random_inclusive_position() {
+glm::vec3 Bound::generate_random_inclusive_position(float padding) {
   int xlo = (int)(bounds[0][0]);
   int xhi = (int)(bounds[0][1]);
   int ylo = (int)(bounds[1][0]);
   int yhi = (int)(bounds[1][1]);
   int zlo = (int)(bounds[2][0]);
   int zhi = (int)(bounds[2][1]);
+
+  if(xlo != xhi) {
+    xlo = (xlo > 0) ? xlo -= padding : xlo += padding;
+    xhi = (xhi > 0) ? xhi -= padding : xhi += padding;
+  }
+  if(ylo != yhi) {
+    ylo = (ylo > 0) ? ylo -= padding : ylo += padding;
+    yhi = (yhi > 0) ? yhi -= padding : yhi += padding;
+  }
+  if(zlo != zhi) {
+    zlo = (zlo > 0) ? zlo -= padding : zlo += padding;
+    zhi = (zhi > 0) ? zhi -= padding : zhi += padding;
+  }
+
   int xx,yy,zz;
   if(xhi != xlo) { xx = rand() % (xhi-xlo) + xlo; } else { xx = xhi; }
   if(yhi != ylo) { yy = rand() % (yhi-ylo) + ylo; } else { yy = yhi; }

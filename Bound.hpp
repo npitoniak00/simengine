@@ -29,7 +29,7 @@ public:
   bool is_vec3_within_bounds(glm::vec3 input_vec3);
   vector<glm::vec3> get_rectangular_bounds();
   vector<vector<int>> get_dim_bounds();
-  glm::vec3 generate_random_inclusive_position();
+  glm::vec3 generate_random_inclusive_position(float padding);
   ~Bound();
 };
 
