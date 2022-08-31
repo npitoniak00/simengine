@@ -71,11 +71,15 @@ StaticFigure::~StaticFigure() {
 }
 vector<glm::mat4> StaticFigure::position_computation(SimState *SimData,VisualComponent *Vc) {
   glm::vec3 vcpos = Vc->get_position();
+  float camera_y_rot_radians = (float)(SimData->get_camera_y_rot());
+  float camera_x_rot_radians = (float)(SimData->get_camera_x_rot());
   glm::mat4 pMat = glm::perspective(1.0472f, 1.0f, 0.1f, 1000.0f);
   glm::mat4 pMatRotX = glm::rotate(pMat,SimData->get_camera_x_rot(),glm::vec3(1,0,0));
   glm::mat4 pMatRotY = glm::rotate(pMatRotX,SimData->get_camera_y_rot(),glm::vec3(0,1,0));
   glm::mat4 vMat = glm::translate(glm::mat4(1.0f), glm::vec3(SimData->get_camera_position()[0],SimData->get_camera_position()[1],SimData->get_camera_position()[2]));
   glm::mat4 mMat = glm::translate(glm::mat4(1.0f), glm::vec3(vcpos[0],vcpos[1],vcpos[2]));
+  mMat = glm::rotate(mMat,-0.2f,glm::vec3(0,1,0));
+  // mMat = glm::rotate(mMat,-0.2f,glm::vec3(1,0,0));
   mMat = glm::scale(mMat,StaticFigure::figure_scale);
   vector<glm::mat4> ret;
   ret.push_back(pMatRotY);

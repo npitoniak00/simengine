@@ -31,7 +31,6 @@ private:
 public:
   Graph();
   void add_node(GraphNode* N);
-  // vector<GraphNode*> get_nodes();
   void tag_nodes_unvisited();
   void init_node_distances();
   bool is_unvisited_nodes_present();

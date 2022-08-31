@@ -84,9 +84,7 @@ void SimState::add_VisualComponent(VisualComponent *Vc) {
   VisualComponents.push_back(Vc);
 }
 void SimState::increment_camera_y_rot(float rot_inc) {
-  //cout << "rotincy: " << rot_inc << endl;
   SimState::camera_y_rot = SimState::camera_y_rot + rot_inc;
-  //cout << "camera y rot: " << camera_y_rot << endl;
   cout << (camera_y_rot += rot_inc) << endl;
 }
 void SimState::increment_camera_x_rot(float rot_inc) {

@@ -36,6 +36,7 @@ class VisualComponent {
     glm::vec3 pos;
     int vbo_index;
     int vertex_count;
+    int normal_count;
     Reticle *parent_reticle = NULL;
     VarPosFigure *parent_vpf = NULL;
     StaticFigure *parent_sf = NULL;
@@ -53,6 +54,8 @@ class VisualComponent {
     void set_vbo_index(int vbo_index_input);
     int get_vertex_count();
     void set_vertex_count(int vertex_count_input);
+    int get_normal_count();
+    void set_normal_count(int normal_count_input);
     glm::vec3 get_position();
     VarPosFigure* get_parent();
     void set_position(glm::vec3 pos_input);

@@ -70,8 +70,6 @@ void SimNonRenderRoutine::set_minimum_time_interval(int min_ms_interval) {
 }
 void SimNonRenderRoutine::execute_instructions() {
   SimNonRenderRoutine::last_exec_ms = S->get_ms_since_init();
-  // cout << "updating routine last_exec_ms to: " << S->get_ms_since_init() << endl;
-  //cout << "attempting exec " << instructions_slug << endl;
   if(instructions_slug == "frame rate calculation") {
     update_frame_rate_calc();
     return;

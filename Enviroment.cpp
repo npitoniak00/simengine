@@ -155,7 +155,7 @@ vector<glm::vec3> Enviroment::compute_linear_shot_indecies(glm::vec3 camera_pos,
 void Enviroment::execute_shot(glm::vec3 camera_pos,glm::vec3 reticle_pos) {
   SimData->set_last_shot_timestamp();
   vector<glm::vec3> shot_points = Enviroment::compute_linear_shot_indecies(camera_pos,reticle_pos,100,1.0);
-  // for(int i = 0; i < shot_points.size(); i++) { Enviroment::init_StaticFigure(shot_points[i]); }
+  // for(int i = 0; i < shot_points.size(); i++) { Enviroment::init_StaticFigure(shot_points[i],glm::vec3(1.0,1.0,1.0)); }
   vector<VarPosFigure*> shot_figure_collisions = Enviroment::get_shot_collisions(shot_points);
   if(shot_figure_collisions.size() > 0) { cout << "FIGURE SHOT" << endl; }
   for(int i = 0; i < shot_figure_collisions.size(); i++) {
@@ -224,7 +224,8 @@ void Enviroment::init_VarPosFigure() {
   FigureMem = new (FigureMem) VarPosFigure(SimData);
 
   string sc("sprite");
-  FigureMem->add_VisualComponent(SimData,0,36,sc,FigureMem);
+  //FigureMem->add_VisualComponent(SimData,0,36,sc,FigureMem);
+  FigureMem->add_VisualComponent(SimData,2,3762,sc,FigureMem);
   if(protagonist != NULL) { FigureMem->set_vpf_target(protagonist); }
   varposfigures.push_back(FigureMem);
 }
@@ -234,7 +235,7 @@ void Enviroment::init_StaticFigure(glm::vec3 input_pos,glm::vec3 scale_vec) {
   FigureMem = new (FigureMem) StaticFigure(SimData,pos,scale_vec);
 
   string sc("static_object");
-  FigureMem->add_VisualComponent(SimData,0,36,sc,FigureMem);
+  FigureMem->add_VisualComponent(SimData,2,3762,sc,FigureMem);
   staticfigures.push_back(FigureMem);
 }
 void Enviroment::set_enviroment_figure_pos_graph(Graph *fig_movement_graph) {

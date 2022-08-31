@@ -87,6 +87,12 @@ void VisualComponent::set_vertex_count(int vertex_count_input) {
 int VisualComponent::get_vertex_count() {
   return vertex_count;
 }
+int VisualComponent::get_normal_count() {
+  return normal_count;
+}
+void VisualComponent::set_normal_count(int normal_count_input) {
+  normal_count = normal_count_input;
+}
 void VisualComponent::set_vbo_index(int vbo_index_input) {
   vbo_index = vbo_index_input;
 }

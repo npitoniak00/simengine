@@ -32,10 +32,10 @@ class SimState {
     glm::vec3 camera_pos;
     glm::vec3 protagonist_pos;
 
-    float camera_y_rot;
-    float camera_x_rot;
     float init_reticle_y_rot = -3.14;
     float init_reticle_x_rot = 1.57;
+    float camera_y_rot = -3.14;
+    float camera_x_rot = 0.0;
     float reticle_y_rot = -3.14;
     float reticle_x_rot = 1.57;
     float reticle_figure_y_rot = 0.0;
